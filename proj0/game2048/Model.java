@@ -159,8 +159,10 @@ public class Model extends Observable {
                 Tile t = board.tile(i,j);
                 if(t!=null && a[i]!=0){
                     if(a[i]==1) {
-                        board.move(i, 3, t);
-                        changed=true;
+                        if(j!=3){
+                            board.move(i, 3, t);
+                            changed=true;
+                        }
                     } else if (a[i]==2) {
                         if(j==3){
                             flag=1;
@@ -244,6 +246,8 @@ public class Model extends Observable {
                                     score+=2*board.tile(i,j).value();
                                     board.move(i,2,t);
                                     changed=true;
+                                }else {
+                                    board.move(i,1,t);
                                 }
                             }else if(flag1==0){
                                 if (t.value()==board.tile(i,1).value()){
