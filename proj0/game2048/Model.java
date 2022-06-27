@@ -146,7 +146,7 @@ public class Model extends Observable {
         if(atLeastOneMoveExists(board)==true){
             changed=true;
         }
-        board.setViewingPerspective(Side.NORTH);
+        board.setViewingPerspective(side);
         int[] a={0,0,0,0};
         for (int i = 0; i < board.size(); i++) {
             for (int j = 0; j < board.size(); j++) {
@@ -245,7 +245,7 @@ public class Model extends Observable {
                 }
             }
         }
-        board.setViewingPerspective(side);
+        board.setViewingPerspective(Side.NORTH);
         checkGameOver();
         if (changed) {
             setChanged();
