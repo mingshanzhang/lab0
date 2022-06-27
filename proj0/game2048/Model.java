@@ -143,9 +143,6 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
-        if(atLeastOneMoveExists(board)==true){
-            changed=true;
-        }
         board.setViewingPerspective(side);
         int[] a={0,0,0,0};
         for (int i = 0; i < board.size(); i++) {
@@ -163,17 +160,23 @@ public class Model extends Observable {
                 if(t!=null && a[i]!=0){
                     if(a[i]==1) {
                         board.move(i, 3, t);
+                        changed=true;
                     } else if (a[i]==2) {
-                        if(flag==0&&j!=3){
+                        if(j==3){
+                            flag=1;
+                        }else if(flag==0){
                             board.move(i,3,t);
+                            changed=true;
                             flag++;
                             continue;
                         } else if (flag!=0) {
                             if(board.tile(i,j).value()==board.tile(i,3).value()){
                                 score+=2*board.tile(i,j).value();
                                 board.move(i,3,t);
+                                changed=true;
                             }else {
                                 board.move(i,2,t);
+                                changed=true;
                             }
                         }
                     }else if(a[i]==3){
@@ -182,30 +185,36 @@ public class Model extends Observable {
                             continue;
                         }else if(flag==0){
                             board.move(i,3,t);
+                            changed=true;
                             flag++;
                             continue;
                         }else if(flag==1){
                             if(t.value()==board.tile(i,3).value()){
                                 score+=2*t.value();
                                 board.move(i,3,t);
+                                changed=true;
                                 flag1=1;
                                 flag++;
                                 continue;
                             }else {
                                 board.move(i,2,t);
+                                changed=true;
                                 flag++;
                                 continue;
                             }
                         }else if(flag==2){
                             if(flag1==1){
                                 board.move(i,2,t);
+                                changed=true;
                             }else {
                                 if(board.tile(i,j).value()==board.tile(i,2).value()){
                                     score+=2*board.tile(i,j).value();
                                     board.move(i,2,t);
+                                    changed=true;
                                     flag1=1;
                                 }else {
                                     board.move(i,1,t);
+                                    changed=true;
                                 }
                             }
                         }
@@ -214,15 +223,18 @@ public class Model extends Observable {
                             if (t.value()==board.tile(i,3).value()){
                                 score+=2*board.tile(i,j).value();
                                 board.move(i,3,t);
+                                changed=true;
                                 flag=1;
                             }
                         }else if(j==1){
                             if (flag==1){
                                 board.move(i,2,t);
+                                changed=true;
                             }else {
                                 if (t.value()==board.tile(i,2).value()){
                                     score+=2*board.tile(i,j).value();
                                     board.move(i,2,t);
+                                    changed=true;
                                     flag1=1;
                                 }
                             }
@@ -231,14 +243,17 @@ public class Model extends Observable {
                                 if (t.value()==board.tile(i,2).value()){
                                     score+=2*board.tile(i,j).value();
                                     board.move(i,2,t);
+                                    changed=true;
                                 }
                             }else if(flag1==0){
                                 if (t.value()==board.tile(i,1).value()){
                                     score+=2*board.tile(i,j).value();
                                     board.move(i,1,t);
+                                    changed=true;
                                 }
                             }else {
                                 board.move(i,1,t);
+                                changed=true;
                             }
                         }
                     }
