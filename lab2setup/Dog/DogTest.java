@@ -7,7 +7,7 @@ public class DogTest {
     @Test
     public void testSmall() {
         Dog d = new Dog(3);
-        assertEquals("yip1", d.noise());
+        assertEquals("yip12", d.noise());
     }
 
     @Test
